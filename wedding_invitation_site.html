@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сватбата на Адилина и Божидар</title>
+  <style>
+    /* fonts */
+
+    @font-face {
+      font-family: 'Monarda';
+      src: url('fonts/Monarda.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    .rubik {
+      font-family: "Rubik Mono One", monospace;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    body {
+      overflow-x: hidden;
+      font-family: 'Georgia', serif;
+      background-image: url('paper_background.webp'); /* replace with your image path */
+      background-repeat: repeat; /* repeat both horizontally and vertically */
+      background-size: auto; /* keeps original size */
+      background-color: #f8f7f2;
+      color: #355d1f;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    /* --- MAIN PAGE --- */
+    .main-page {
+      background-image: url('images/proba.HEIC');
+      height: 100vh;
+      max-width: 100vw;
+      border-bottom: 1px solid #ccc;
+      padding: 0;
+      display: flex;
+      flex-direction: row-reverse;
+    }
+
+    header {
+      width: 60vh;
+      align-self: flex-end;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header h1 {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 100px;
+      margin: 6px 0;
+    }
+
+    header h2 {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 16px;
+      margin: 6px 0;
+    }
+
+    header p {
+      margin: 0;
+    }
+
+    section {
+      padding: 2rem 1rem;
+    }
+
+    .corner-img {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 65vw;       /* adjust size as you like */
+      height: 100vh;
+      opacity: 0.9;       /* makes it blend nicely */
+      pointer-events: none; /* ensures it doesn’t block clicks */
+    }
+
+    .poppy {
+      position: absolute;
+      bottom: 54vh;          /* adjust to where you want it */
+      right: -5vw;            /* adjust to where you want it */
+      width: 17vw;          /* control the size */
+      transform: rotate(-40deg);  /* counterclockwise */
+      transform-origin: center;
+      opacity: 0.9;          /* optional – soft look */
+      pointer-events: none;  /* prevents blocking clicks */
+    }
+
+
+    /* --- SCHEDULE --- */
+    h3 {
+      font-family: "Great Vibes", cursive;
+      font-size: 60px;
+      font-weight: 100;
+      margin: 10px;
+    }
+    .schedule {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .schedule h3 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .schedule ul {
+      margin: 40px 0;
+    }
+    .schedule li {
+      height: 50px;
+      display: flex;
+      margin-bottom: 10px;
+    }
+    .time {
+      width: 120px;
+      font-family: 'Brush Script MT', cursive;
+      font-size: 40px;
+    }
+    .divider {
+      background-image: url('line-leaves.png');
+      background-repeat: no-repeat;
+      background-size: contain;   /* scales it to fit */
+      background-position: center;
+      height: 100%;
+      border-right: 1px solid #355d1f;
+    }
+    .location {
+      margin-left: 20px;
+    }
+
+    /* --- FORM --- */
+    form {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: 2rem auto;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    form h3 {
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      margin: 0.5rem 0;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1.5rem;
+      background-color: #3d3d2e;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #5a5a44;
+    }
+
+    .date {
+      font-family: 'Monarda';
+      font-size: 40px;
+      margin-top: 4vh;
+      margin-bottom: 16vh;
+    }
+  </style>
+</head>
+<body>
+  <section class="main-page">
+    <header>
+      <h1>Адилина</h1>
+      <h1>и Божидар</h1>
+      <p class="date">14.06.2026</p>
+      <img src="images/proba.jpg" alt="Decorative flower" class="corner-img">
+      <img src="svgs/poppy_open.svg" alt="Poppy" class="poppy">
+  </header>
+
+  </section>
+
+  <section class="schedule">
+    <h3>Програма</h3>
+    <ul>
+      <li>
+        <div class="time">15:30</div>
+        <div class="divider"></div>
+        <div class="location">Обредна зала Триадица</div>
+      </li>
+      <li>
+        <div class="time">16:30</div>
+        <div class="divider"></div>
+        <div class="location">Храм "Света Неделя"</div>
+      </li>
+      <li>
+        <div class="time">18:30</div> 
+        <div class="divider"></div>
+        <div class="location">Хотел Хилтън - коктейл</div></li>
+      <li>
+        <div class="time">19:00</div>
+        <div class="divider"></div>
+        <div class="location">Вечеря</div>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <form id="menuForm">
+      <h3>Meal Preference</h3>
+      <label>
+        <input type="radio" name="meal" value="normal" required> Normal
+      </label>
+      <label>
+        <input type="radio" name="meal" value="vegetarian"> Vegetarian
+      </label>
+      <button type="submit">Submit</button>
+    </form>
+  </section>
+
+  <script>
+    document.getElementById('menuForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const choice = document.querySelector('input[name="meal"]:checked').value;
+      alert('Thank you! You selected: ' + choice + ' menu.');
+    });
+  </script>
+</body>
+</html>
