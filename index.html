@@ -39,11 +39,12 @@
       margin: 0;
       padding: 0;
       text-align: center;
+      display: flex;
+      flex-direction: column;
     }
 
     /* --- MAIN PAGE --- */
     .main-page {
-      background-image: url('images/proba.HEIC');
       height: 100vh;
       max-width: 100vw;
       border-bottom: 1px solid #ccc;
@@ -53,7 +54,7 @@
     }
 
     header {
-      width: 60vh;
+      width: 65vh;
       align-self: flex-end;
       display: flex;
       flex-direction: column;
@@ -79,11 +80,17 @@
       padding: 2rem 1rem;
     }
 
+    .date {
+      font-family: 'Monarda';
+      font-size: 40px;
+      margin-top: 4vh;
+      margin-bottom: 16vh;
+    }
+
     .corner-img {
       position: absolute;
       bottom: 0;
       left: 0;
-      width: 65vw;       /* adjust size as you like */
       height: 100vh;
       opacity: 0.9;       /* makes it blend nicely */
       pointer-events: none; /* ensures it doesn’t block clicks */
@@ -101,6 +108,50 @@
     }
 
 
+    @media (max-width: 768px) {
+      .main-page {
+        height: 1126px;
+        max-width: unset;
+        border-bottom: 1px solid #ccc;
+        padding: 0;
+        display: flex;
+      }
+      header {
+        margin-top: 180px;
+        align-self: flex-start;
+      }
+      header h1 {
+        font-family: 'Brush Script MT', cursive;
+        font-size: 80px;
+        margin: 6px 0;
+      }
+      .poppy {
+        position: absolute;
+        top: 4vh;          /* adjust to where you want it */
+        right: -5vw;            /* adjust to where you want it */
+        width: 45vw;          /* control the size */
+        transform: rotate(-40deg);  /* counterclockwise */
+        transform-origin: center;
+        opacity: 0.9;          /* optional – soft look */
+        pointer-events: none;  /* prevents blocking clicks */
+      }
+      .corner-img {
+        position: relative;
+        height: auto;
+        width: 100vw;
+        opacity: 0.9;       /* makes it blend nicely */
+        pointer-events: none; /* ensures it doesn’t block clicks */
+      }
+
+      .date {
+        margin-top: 10px;
+        margin-bottom: 30px;
+      }
+
+      .divider {
+        display: none; /* optional — hide or simplify for mobile */
+      }
+    }
     /* --- SCHEDULE --- */
     h3 {
       font-family: "Great Vibes", cursive;
@@ -144,6 +195,12 @@
     .location {
       margin-left: 20px;
     }
+    .second-image {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 0;
+    }
 
     /* --- FORM --- */
     form {
@@ -175,24 +232,21 @@
       background-color: #5a5a44;
     }
 
-    .date {
-      font-family: 'Monarda';
-      font-size: 40px;
-      margin-top: 4vh;
-      margin-bottom: 16vh;
-    }
   </style>
 </head>
 <body>
   <section class="main-page">
     <header>
+      <img src="svgs/poppy_open.svg" alt="Poppy" class="poppy">
       <h1>Адилина</h1>
       <h1>и Божидар</h1>
       <p class="date">14.06.2026</p>
-      <img src="images/proba.jpg" alt="Decorative flower" class="corner-img">
-      <img src="svgs/poppy_open.svg" alt="Poppy" class="poppy">
-  </header>
-
+      <picture>
+        <source media="(max-width: 768px)" srcset="images/main_page_mobile.JPG">
+        <source media="(min-width: 769px)" srcset="images/main-page.JPG">
+        <img src="images/main_page.JPG" class="corner-img" alt="Background">
+      </picture>
+    </header>
   </section>
 
   <section class="schedule">
@@ -220,6 +274,10 @@
     </ul>
   </section>
 
+  <section class="second-image">
+      <img src="images/nevski.JPG" alt="image" >
+  </section>
+
   <section>
     <form id="menuForm">
       <h3>Meal Preference</h3>
@@ -231,6 +289,10 @@
       </label>
       <button type="submit">Submit</button>
     </form>
+  </section>
+
+  <section class="second-image">
+      <img src="images/footer.JPG" alt="image" >
   </section>
 
   <script>
