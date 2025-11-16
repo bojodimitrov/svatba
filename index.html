@@ -70,22 +70,30 @@
         flex-direction: column;
       }
 
-      /* --- MAIN PAGE --- */
-      .main-page {
-        height: 100vh;
-        width: 100vw;
-        border-bottom: 1px solid #ccc;
-        padding: 0;
-        display: flex;
-        flex-direction: row;
-      }
-
       header {
         width: 100%;
         display: flex;
         flex-direction: column;
         align-self: center;
         margin-top: 200px;
+      }
+      @media (max-width: 768px) {
+        header {
+          margin-top: 40px;
+          align-self: flex-start;
+        }
+      }
+
+      h3 {
+        font-family: "Madelyn", cursive;
+        font-size: 110px;
+        font-weight: 100;
+        margin: 10px;
+      }
+      @media (max-width: 768px) {
+        h3 {
+          font-size: 72px;
+        }
       }
 
       header h1 {
@@ -94,7 +102,13 @@
         font-size: 140px;
         margin: 6px 0;
       }
-
+      @media (max-width: 768px) {
+        header h1 {
+          font-family: "Madelyn", cursive;
+          font-size: 80px;
+          margin: 6px 0;
+        }
+      }
       header h2 {
         font-family: "Madelyn", cursive;
         font-size: 16px;
@@ -104,20 +118,50 @@
       header p {
         margin: 0;
       }
-
-      section {
-        padding: 2rem 1rem;
+      /* --- MAIN PAGE --- */
+      .main-page {
+        height: 100vh;
+        width: 100vw;
+        border-bottom: 1px solid #ccc;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+      }
+      @media (max-width: 768px) {
+        .main-page {
+          height: unset;
+          max-width: unset;
+          border-bottom: 1px solid #ccc;
+          padding: 0;
+          display: flex;
+          flex-direction: column-reverse;
+        }
       }
 
       .date {
         font-family: "Monarda";
         font-size: 60px;
       }
+      @media (max-width: 768px) {
+        .date {
+          margin-top: 20px;
+          margin-bottom: 30px;
+        }
+      }
 
       .corner-img {
         height: 100%;
         opacity: 0.9; /* makes it blend nicely */
         pointer-events: none; /* ensures it doesn’t block clicks */
+      }
+      @media (max-width: 768px) {
+        .corner-img {
+          position: relative;
+          height: auto;
+          width: 100vw;
+          opacity: 0.9; /* makes it blend nicely */
+          pointer-events: none; /* ensures it doesn’t block clicks */
+        }
       }
 
       .poppy {
@@ -131,66 +175,43 @@
       }
 
       @media (max-width: 768px) {
-        .main-page {
-          height: 1126px;
-          max-width: unset;
-          border-bottom: 1px solid #ccc;
-          padding: 0;
-          display: flex;
-        }
-        header {
-          margin-top: 180px;
-          align-self: flex-start;
-        }
-        header h1 {
-          font-family: "Madelyn", cursive;
-          font-size: 80px;
-          margin: 6px 0;
-        }
         .poppy {
+          display: none;
+          /*
           position: absolute;
-          top: 4vh; /* adjust to where you want it */
-          right: -5vw; /* adjust to where you want it */
-          width: 45vw; /* control the size */
-          transform: rotate(-40deg); /* counterclockwise */
+          top: 4vh;
+          right: -5vw;
+          width: 45vw;
+          transform: rotate(-40deg);
           transform-origin: center;
-          opacity: 0.9; /* optional – soft look */
-          pointer-events: none; /* prevents blocking clicks */
-        }
-        .corner-img {
-          position: relative;
-          height: auto;
-          width: 100vw;
-          opacity: 0.9; /* makes it blend nicely */
-          pointer-events: none; /* ensures it doesn’t block clicks */
-        }
-
-        .date {
-          margin-top: 20px;
-          margin-bottom: 30px;
-        }
-
-        .divider {
-          display: none; /* optional — hide or simplify for mobile */
+          opacity: 0.9;
+          pointer-events: none;
+          */
         }
       }
 
-      /* --- COUNTDOWN --- */
+      /* --- WILL BECOME FAMILY --- */
       .will-be-family {
         background-image: url("images/bamboo.png");
         color: #f8f7f2;
         padding: 100px 0;
       }
+      @media (max-width: 768px) {
+        .will-be-family {
+          padding: 0 20px 50px 20px;
+        }
+      }
 
       .will-be-family-paragraph {
         align-self: center;
-        width: 800px;
+        max-width: 800px;
       }
 
       .will-be-family header {
         margin-top: 20px;
       }
 
+      /* --- COUNTDOWN --- */
       .countdown {
         display: flex;
         flex-direction: column;
@@ -201,11 +222,17 @@
       .countdown-clock {
         display: flex;
       }
+      @media (max-width: 768px) {
+        .countdown-clock {
+          flex-direction: column;
+        }
+      }
 
       .countdown-labels {
         font-family: "Madelyn", cursive;
         display: flex;
         font-size: 32px;
+        margin-top: -10px;
       }
 
       .countdown-numbers {
@@ -226,14 +253,13 @@
         padding-bottom: 30px;
         font-size: 30px;
       }
+      @media (max-width: 768px) {
+        .countdown-colon {
+          display: none;
+        }
+      }
 
       /* --- SCHEDULE --- */
-      h3 {
-        font-family: "Madelyn", cursive;
-        font-size: 110px;
-        font-weight: 100;
-        margin: 10px;
-      }
       .schedule {
         max-width: 1000px;
         margin: 0 auto;
@@ -346,7 +372,7 @@
         <span class="countdown-colon">:</span>
         <div class="countdown-numlels">
           <span id="hours" class="countdown-numbers">0</span
-          ><span class="countdown-labels">часове</span>
+          ><span class="countdown-labels">часа</span>
         </div>
         <span class="countdown-colon">:</span>
         <div class="countdown-numlels">
@@ -445,7 +471,7 @@
 
       const targetDate = new Date("2026-06-14T00:00:00").getTime();
 
-      setInterval(() => {
+      function updateClock() {
         const now = new Date().getTime();
         const diff = targetDate - now;
 
@@ -458,7 +484,10 @@
         document.getElementById("hours").textContent = hours;
         document.getElementById("minutes").textContent = minutes;
         document.getElementById("seconds").textContent = seconds;
-      }, 1000);
+      }
+
+      updateClock();
+      setInterval(updateClock, 1000);
     </script>
   </body>
 </html>
