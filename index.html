@@ -79,7 +79,7 @@
       }
       @media (max-width: 768px) {
         header {
-          margin-top: 40px;
+          margin-top: 148px;
           align-self: flex-start;
         }
       }
@@ -145,7 +145,7 @@
 
       .date {
         font-family: "Monarda";
-        font-size: 60px;
+        font-size: 50px;
       }
       @media (max-width: 768px) {
         .date {
@@ -169,26 +169,39 @@
         }
       }
 
+      .flower {
+        position: absolute;
+        top: 50px;
+        width: 15vw;
+        transform-origin: center;
+        pointer-events: none;
+      }
+
+      @media (max-width: 768px) {
+        .flower {
+          position: absolute;
+          top: 0vh;
+          width: 40vw;
+          transform-origin: center;
+          pointer-events: none;
+        }
+      }
+
       .poppy {
         position: absolute;
         top: 50px;
-        right: -50px;
+        right: 0px;
         width: 15vw;
-        transform: rotate(-40deg);
         transform-origin: center;
         pointer-events: none;
       }
 
       @media (max-width: 768px) {
         .poppy {
-          display: none;
           position: absolute;
-          top: 4vh;
-          right: 16vw;
-          width: 45vw;
-          transform: translateX(100px) rotate(-40deg);
+          top: -2vh;
+          width: 40vw;
           transform-origin: center;
-          opacity: 0.9;
           pointer-events: none;
         }
       }
@@ -292,7 +305,7 @@
         .schedule li {
           height: unset;
           flex-direction: column;
-          margin: 0 0 30px 20px;
+          margin: 0 0 50px 20px;
           border-left: 1px solid #355d1f;
           align-items: flex-start;
         }
@@ -307,7 +320,8 @@
       }
       @media (max-width: 768px) {
         .time {
-          margin: 0 0 0 20px;
+          margin: 10px 0 0 20px;
+          order: 3;
         }
       }
       .divider {
@@ -344,15 +358,14 @@
       /* --- FORM --- */
       .answer {
         background-image: url("images/bamboo.png");
-        padding: 100px 0;
+        padding: 60px 10px;
       }
 
       form {
         background: #fff;
-        padding: 1.5rem;
         border-radius: 10px;
+        padding: 20px 10px;
         max-width: 400px;
-        margin: 2rem auto;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       }
       form h3 {
@@ -388,7 +401,8 @@
         <img src="images/main_page.JPG" alt="Background" class="corner-img" />
       </picture>
       <header>
-        <img src="svgs/poppy_open.svg" alt="Poppy" class="poppy" />
+        <img src="svgs/flower_rotated.svg" alt="Flower" class="flower" />
+        <img src="svgs/poppy_open_rotated.svg" alt="Poppy" class="poppy" />
         <h1>Адилина</h1>
         <h1>и Божидар</h1>
         <p class="date">14.06.2026</p>
@@ -543,12 +557,20 @@
 
       function updateClock() {
         const now = new Date().getTime();
-        const diff = targetDate - now;
+        let diff = targetDate - now;
+
+        diff = diff - 1000;
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1001) % 60);
+        diff -= days * (1000 * 60 * 60 * 24);
+
+        let hours = Math.floor(diff / (1000 * 60 * 60));
+        diff -= hours * (1000 * 60 * 60);
+
+        const minutes = Math.floor(diff / (1000 * 60));
+        diff -= minutes * (1000 * 60);
+
+        const seconds = Math.floor(diff / 1000);
 
         if (new Date().getTime() < new Date("2026-03-29T00:00:00").getTime()) {
           hours = hours + 1;
