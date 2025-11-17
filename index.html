@@ -118,6 +118,11 @@
       header p {
         margin: 0;
       }
+
+      a {
+        text-decoration: none;
+      }
+
       /* --- MAIN PAGE --- */
       .main-page {
         height: 100vh;
@@ -129,6 +134,7 @@
       }
       @media (max-width: 768px) {
         .main-page {
+          border-bottom: unset;
           height: unset;
           max-width: unset;
           padding: 0;
@@ -336,6 +342,11 @@
       }
 
       /* --- FORM --- */
+      .answer {
+        background-image: url("images/bamboo.png");
+        padding: 100px 0;
+      }
+
       form {
         background: #fff;
         padding: 1.5rem;
@@ -430,7 +441,15 @@
           <div class="divider"></div>
           <div class="event">
             <p class="explanation">Сключване на граждански брак</p>
-            <p class="location">Обредна зала Триадица</p>
+            <p class="location">
+              Обредна зала "Триадица"<a
+                href="https://maps.app.goo.gl/jwweCE2cpzv9NtA28"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src="svgs/location_icon.svg" />
+              </a>
+            </p>
           </div>
         </li>
         <li>
@@ -438,7 +457,15 @@
           <div class="divider"></div>
           <div class="event">
             <p class="explanation">Сключване на църковен брак</p>
-            <p class="location">Храм "Света Неделя"</p>
+            <p class="location">
+              Храм "Света Неделя"<a
+                href="https://maps.app.goo.gl/1RDFghNMPGUkAh6c6"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src="svgs/location_icon.svg" />
+              </a>
+            </p>
           </div>
         </li>
         <li>
@@ -446,7 +473,15 @@
           <div class="divider"></div>
           <div class="event">
             <p class="explanation">Welcome drink и снимки с младоженците</p>
-            <p class="location">Хотел Хилтън</p>
+            <p class="location">
+              Хотел Хилтън<a
+                href="https://maps.app.goo.gl/4WVfMFG5AbUZCbJS7"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src="svgs/location_icon.svg" />
+              </a>
+            </p>
           </div>
         </li>
         <li>
@@ -459,20 +494,33 @@
       </ul>
     </section>
 
-    <section class="second-image">
-      <img src="images/nevski.JPG" alt="image" />
-    </section>
-
-    <section>
+    <section class="answer">
       <form id="menuForm">
-        <h3>Meal Preference</h3>
+        <h3>Отговор</h3>
         <label>
-          <input type="radio" name="meal" value="normal" required /> Normal
+          <input name="meal" placeholder="Имена" required />
+        </label>
+
+        <p>Ще присъстваш ли?</p>
+        <label>
+          <input type="radio" name="attendance" value="yes" />
+          да
         </label>
         <label>
-          <input type="radio" name="meal" value="vegetarian" /> Vegetarian
+          <input type="radio" name="attendance" value="no" />
+          не
         </label>
-        <button type="submit">Submit</button>
+
+        <p>Какъв тип меню предпочиташ?</p>
+        <label>
+          <input type="radio" name="menu-choice" value="yes" />
+          Вегетарианско
+        </label>
+        <label>
+          <input type="radio" name="menu-choice" value="no" />
+          Месно
+        </label>
+        <button type="submit">ОТГОВОРИ СЕГА</button>
       </form>
     </section>
 
@@ -498,9 +546,13 @@
         const diff = targetDate - now;
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        let hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
         const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
+        const seconds = Math.floor((diff / 1001) % 60);
+
+        if (new Date().getTime() < new Date("2026-03-29T00:00:00").getTime()) {
+          hours = hours + 1;
+        }
 
         document.getElementById("days").textContent = days;
         document.getElementById("hours").textContent = hours;
