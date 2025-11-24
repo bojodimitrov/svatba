@@ -132,7 +132,7 @@
         display: flex;
         flex-direction: row;
       }
-      @media (max-width: 768px) {
+      @media (max-width: 1056px) {
         .main-page {
           border-bottom: unset;
           height: unset;
@@ -147,7 +147,7 @@
         font-family: "Monarda";
         font-size: 50px;
       }
-      @media (max-width: 768px) {
+      @media (max-width: 1056px) {
         .date {
           margin-top: 20px;
           margin-bottom: 30px;
@@ -159,7 +159,7 @@
         opacity: 0.9; /* makes it blend nicely */
         pointer-events: none; /* ensures it doesn’t block clicks */
       }
-      @media (max-width: 768px) {
+      @media (max-width: 1056px) {
         .corner-img {
           position: relative;
           height: auto;
@@ -182,7 +182,8 @@
           position: absolute;
           top: 0vh;
           width: 40vw;
-          transform-origin: center;
+          transform-origin: left;
+          transform: scale(0.7);
           pointer-events: none;
         }
       }
@@ -359,14 +360,33 @@
       .answer {
         background-image: url("images/bamboo.png");
         padding: 60px 10px;
+        display: flex;
+        flex-direction: column;
       }
 
+      input,
+      select {
+        outline: none;
+        border: none;
+        border-bottom: 2px solid #355d1f;
+        padding: 10px 20px;
+        color: #355d1f;
+        font-size: 20px;
+        font-weight: 400;
+        width: 100%;
+      }
       form {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        align-items: flex-start;
         background: #fff;
-        border-radius: 10px;
-        padding: 20px 10px;
+        border-radius: 1px;
+        padding: 20px 10px 20px 60px;
         max-width: 400px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        font-family: "Gilda Display", serif;
+        font-size: 20px;
+        min-width: 500px;
       }
       form h3 {
         margin-bottom: 1rem;
@@ -385,6 +405,14 @@
         cursor: pointer;
       }
 
+      .question {
+        margin-top: 24px;
+      }
+
+      .radio-choice {
+        display: flex;
+      }
+
       button:hover {
         background-color: #5a5a44;
       }
@@ -394,7 +422,7 @@
     <section class="main-page">
       <picture>
         <source
-          media="(max-width: 768px)"
+          media="(max-width: 1372px)"
           srcset="images/main_page_mobile.JPG"
         />
         <source media="(min-width: 769px)" srcset="images/main_page.JPG" />
@@ -515,25 +543,48 @@
           <input name="meal" placeholder="Имена" required />
         </label>
 
-        <p>Ще присъстваш ли?</p>
-        <label>
-          <input type="radio" name="attendance" value="yes" />
-          да
-        </label>
-        <label>
-          <input type="radio" name="attendance" value="no" />
-          не
-        </label>
+        <div class="question">
+          <p>Ще присъстваш ли?</p>
+          <div class="radio-choice">
+            <label>
+              <input type="radio" name="attendance" value="yes" />
+              Да
+            </label>
+            <label>
+              <input type="radio" name="attendance" value="no" />
+              Не
+            </label>
+          </div>
+        </div>
 
-        <p>Какъв тип меню предпочиташ?</p>
-        <label>
-          <input type="radio" name="menu-choice" value="yes" />
-          Вегетарианско
-        </label>
-        <label>
-          <input type="radio" name="menu-choice" value="no" />
-          Месно
-        </label>
+        <div class="question">
+          <p>Какъв тип меню предпочиташ?</p>
+          <div class="radio-choice">
+            <label>
+              <input type="radio" name="menu-choice" value="yes" />
+              Вегетарианско
+            </label>
+            <label>
+              <input type="radio" name="menu-choice" value="no" />
+              Месно
+            </label>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>Брой допълнителни гости:</p>
+          <select id="countSelect">
+            <option value="0">Избери брой...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+
+        <div id="groupsContainer"></div>
+
         <button type="submit">ОТГОВОРИ СЕГА</button>
       </form>
     </section>
@@ -584,6 +635,41 @@
 
       updateClock();
       setInterval(updateClock, 1000);
+
+      const select = document.getElementById("countSelect");
+      const container = document.getElementById("groupsContainer");
+
+      select.addEventListener("change", () => {
+        const count = Number(select.value);
+
+        // Clear old groups
+        container.innerHTML = "";
+
+        for (let i = 1; i <= count; i++) {
+          const group = document.createElement("div");
+          group.className = "group";
+
+          group.innerHTML = `
+          <label>Име ${i}: <input type="text" name="name_${i}" /></label>
+
+          <div class="question">
+            <p>Какъв тип меню предпочиташ?</p>
+            <div class="radio-choice">
+              <label>
+                <input type="radio" name="menu_choice_${i}" value="vegetarian" />
+                Вегетарианско
+              </label>
+              <label>
+                <input type="radio" name="menu_choice_${i}" value="meat" />
+                Месно
+              </label>
+            </div>
+          </div>
+        `;
+
+          container.appendChild(group);
+        }
+      });
     </script>
   </body>
 </html>
