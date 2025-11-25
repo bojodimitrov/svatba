@@ -376,6 +376,7 @@
       }
       .text-field {
         width: 100%;
+        box-sizing: border-box;
       }
       form {
         display: flex;
@@ -412,8 +413,12 @@
       label {
         display: flex;
         width: 100%;
+        margin-right: 20px;
       }
 
+      .radio-input {
+        margin-right: 10px;
+      }
       .form-label {
         flex-direction: column;
         align-items: flex-start;
@@ -432,6 +437,10 @@
         font-size: 60px;
         align-self: center;
         margin-left: 20px;
+      }
+
+      .group-container {
+        width: 100%;
       }
 
       .group {
@@ -582,11 +591,21 @@
           <p>Какъв тип меню предпочиташ?</p>
           <div class="radio-choice">
             <label>
-              <input type="radio" name="menu-choice" value="yes" />
+              <input
+                class="radio-input"
+                type="radio"
+                name="menu-choice"
+                value="yes"
+              />
               Вегетарианско
             </label>
             <label>
-              <input type="radio" name="menu-choice" value="no" />
+              <input
+                class="radio-input"
+                type="radio"
+                name="menu-choice"
+                value="no"
+              />
               Месно
             </label>
           </div>
@@ -602,14 +621,15 @@
             <input id="countRange" type="range" min="0" max="5" value="0" />
             <span id="rangeValue" class="guest-slider">0</span>
           </div>
+
+          <div id="groupsContainer" class="group-container"></div>
           <p>Деца:</p>
           <div class="radio-choice">
             <input id="countRangeKids" type="range" min="0" max="5" value="0" />
             <span id="rangeValueKids" class="guest-slider">0</span>
           </div>
+          <div id="groupsContainerKids" class="group-container"></div>
         </div>
-
-        <div id="groupsContainer"></div>
 
         <button type="submit">ОТГОВОРИ СЕГА</button>
       </form>
@@ -662,46 +682,60 @@
       updateClock();
       setInterval(updateClock, 1000);
 
-      const range = document.getElementById("countRange");
-      const rangeValue = document.getElementById("rangeValue");
-      const container = document.getElementById("groupsContainer");
+      function slider(
+        countRangeId,
+        rangeValueId,
+        groupsContainerId,
+        guestType
+      ) {
+        const range = document.getElementById(countRangeId);
+        const rangeValue = document.getElementById(rangeValueId);
+        const container = document.getElementById(groupsContainerId);
 
-      // initial render
-      renderGroups(range.value);
-
-      range.addEventListener("input", () => {
-        rangeValue.textContent = range.value;
+        // initial render
         renderGroups(range.value);
-      });
 
-      function renderGroups(count) {
-        container.innerHTML = "";
+        range.addEventListener("input", () => {
+          rangeValue.textContent = range.value;
+          renderGroups(range.value);
+        });
 
-        for (let i = 1; i <= count; i++) {
-          const group = document.createElement("div");
-          group.className = "group";
+        function renderGroups(count) {
+          container.innerHTML = "";
 
-          group.innerHTML = `
-            <label class="form-label">Гост ${i}: <input type="text" name="name_${i}" class="text-field"></label>
+          for (let i = 1; i <= count; i++) {
+            const group = document.createElement("div");
+            group.className = "group";
+
+            group.innerHTML = `
+            <label class="form-label">${guestType} ${i}: <input type="text" name="name_${i}" class="text-field"></label>
 
             <div class="question">
               <p>Какъв тип меню предпочиташ?</p>
               <div class="radio-choice">
                 <label>
-                  <input type="radio" name="menu_choice_${i}" value="vegetarian">
+                  <input
+                    class="radio-input"
+                    type="radio" name="menu_choice_${i}" value="vegetarian">
                   Вегетарианско
                 </label>
                 <label>
-                  <input type="radio" name="menu_choice_${i}" value="meat">
+                  <input
+                    class="radio-input"
+                    type="radio" name="menu_choice_${i}" value="meat">
                   Месно
                 </label>
               </div>
             </div>
           `;
 
-          container.appendChild(group);
+            container.appendChild(group);
+          }
         }
       }
+
+      slider("countRange", "rangeValue", "groupsContainer", "Гост");
+      slider("countRangeKids", "rangeValueKids", "groupsContainerKids", "Дете");
     </script>
   </body>
 </html>
