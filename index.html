@@ -373,6 +373,8 @@
         color: #355d1f;
         font-size: 20px;
         font-weight: 400;
+      }
+      .text-field {
         width: 100%;
       }
       form {
@@ -559,7 +561,7 @@
       <form id="menuForm">
         <h3>Отговор</h3>
         <label>
-          <input name="meal" placeholder="Имена" required />
+          <input name="meal" placeholder="Имена" required class="text-field" />
         </label>
 
         <div class="question">
@@ -680,7 +682,7 @@
           group.className = "group";
 
           group.innerHTML = `
-            <label class="form-label">Гост ${i}: <input type="text" name="name_${i}"></label>
+            <label class="form-label">Гост ${i}: <input type="text" name="name_${i}" class="text-field"></label>
 
             <div class="question">
               <p>Какъв тип меню предпочиташ?</p>
