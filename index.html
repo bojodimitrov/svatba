@@ -125,8 +125,8 @@
 
       /* --- MAIN PAGE --- */
       .main-page {
-        background: url("images/leaves.png") 0 repeat-x,
-          url("images/leaves_2.png") 350px repeat-x;
+        background: url("images/leaves.png") -10px repeat-x,
+          url("images/leaves_2.png") 340px repeat-x;
         background-size: 600px;
         background-position-y: -20px;
         height: 100vh;
@@ -447,6 +447,7 @@
         align-self: center;
         align-items: flex-start;
         background: #fff;
+        width: 100%;
         border-radius: 1px;
         padding: 20px 40px;
         max-width: 400px;
@@ -601,7 +602,7 @@
             <p class="explanation">
               Сключване на граждански брак
               <img
-                style="width: 110px"
+                style="width: 83px"
                 class="schedule-icon"
                 src="svgs/wedding_bands.svg"
                 alt=""
@@ -625,7 +626,7 @@
             <p class="explanation">
               Сключване на църковен брак
               <img
-                style="width: 60px"
+                style="width: 52px"
                 class="schedule-icon"
                 src="svgs/church.svg"
                 alt=""
@@ -682,9 +683,9 @@
             <p class="explanation">
               Празнична вечеря
               <img
-                style="width: 54px"
+                style="width: 61px"
                 class="schedule-icon"
-                src="svgs/plate.svg"
+                src="svgs/plate2.svg"
                 alt=""
               />
             </p>
@@ -717,7 +718,7 @@
               Да
             </label>
             <label>
-              <input type="radio" name="attendance" value="no" />
+              <input type="radio" name="attendance" value="no" checked/>
               Не
             </label>
           </div>
@@ -754,14 +755,14 @@
           </p>
           <p>Възрастни:</p>
           <div class="radio-choice">
-            <input id="countRange" type="range" min="0" max="2" value="0" />
+            <input id="countRange" type="range" min="0" max="2" value="0" class="text-field"/>
             <span id="rangeValue" class="guest-slider">0</span>
           </div>
 
           <div id="groupsContainer" class="group-container"></div>
           <p>Деца (до 12 години):</p>
           <div class="radio-choice">
-            <input id="countRangeKids" type="range" min="0" max="3" value="0" />
+            <input id="countRangeKids" type="range" min="0" max="3" value="0" class="text-field"/>
             <span id="rangeValueKids" class="guest-slider">0</span>
           </div>
           <div id="groupsContainerKids" class="group-container"></div>
