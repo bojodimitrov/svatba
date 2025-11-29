@@ -125,6 +125,10 @@
 
       /* --- MAIN PAGE --- */
       .main-page {
+        background: url("images/leaves.png") 0 repeat-x,
+          url("images/leaves_2.png") 350px repeat-x;
+        background-size: 600px;
+        background-position-y: -20px;
         height: 100vh;
         width: 100vw;
         border-bottom: 1px solid #ccc;
@@ -140,6 +144,11 @@
           padding: 0;
           display: flex;
           flex-direction: column-reverse;
+        }
+      }
+      @media (max-width: 768px) {
+        .main-page {
+          background-size: 400px;
         }
       }
 
@@ -169,10 +178,20 @@
         }
       }
 
+      .names {
+      }
       .flower {
         position: absolute;
-        top: 50px;
-        width: 15vw;
+        top: -20px;
+        width: 600px;
+        transform-origin: center;
+        pointer-events: none;
+      }
+      .flower-2 {
+        position: absolute;
+        top: -20px;
+        width: 600px;
+        transform: translateX(560px);
         transform-origin: center;
         pointer-events: none;
       }
@@ -277,6 +296,36 @@
       }
 
       /* --- SCHEDULE --- */
+      .location-icon {
+        width: 16px;
+        animation: jumpAnim 1.5s infinite;
+      }
+      @keyframes jumpAnim {
+        0% {
+          transform: translateY(0);
+        }
+        15% {
+          transform: translateY(-12px);
+        } /* big jump */
+        25% {
+          transform: translateY(0);
+        }
+        45% {
+          transform: translateY(-4px);
+        } /* smaller jump */
+        55% {
+          transform: translateY(0);
+        }
+        75% {
+          transform: translateY(-2px);
+        } /* smallest jump */
+        85% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
       .schedule {
         max-width: 1000px;
         margin: 0 auto;
@@ -292,13 +341,17 @@
       .schedule ul {
         margin: 40px 0;
       }
+      .schedule-icon {
+        margin-left: 20px;
+        margin-right: 20px;
+      }
       @media (max-width: 768px) {
         .schedule ul {
           padding: 0;
         }
       }
       .schedule li {
-        height: 150px;
+        min-height: 100px;
         display: flex;
         align-items: center;
       }
@@ -313,6 +366,7 @@
       }
 
       .time {
+        align-self: flex-start;
         width: 120px;
         font-family: "Gilda Display", serif;
         font-weight: 700;
@@ -326,12 +380,8 @@
         }
       }
       .divider {
-        background-image: url("line-leaves.png");
-        background-repeat: no-repeat;
-        background-size: contain; /* scales it to fit */
-        background-position: center;
-        height: 100%;
         border-right: 1px solid #355d1f;
+        align-self: stretch;
       }
       @media (max-width: 768px) {
         .divider {
@@ -340,10 +390,18 @@
       }
       .event {
         margin-left: 20px;
+        margin-bottom: 46px;
+        align-self: flex-start;
+      }
+      @media (max-width: 768px) {
+        .event {
+          margin-bottom: 0;
+        }
       }
       .explanation {
         font-family: "Madelyn", cursive;
         font-size: 40px;
+        display: flex;
       }
       .location {
         font-family: "Gilda Display", serif;
@@ -362,6 +420,11 @@
         padding: 60px 10px;
         display: flex;
         flex-direction: column;
+      }
+      @media (min-width: 1920px) {
+        .answer {
+          background-size: 100% auto;
+        }
       }
 
       input,
@@ -389,9 +452,11 @@
         max-width: 400px;
         font-family: "Gilda Display", serif;
         font-size: 20px;
+        box-sizing: border-box;
       }
-      form h3 {
-        margin-bottom: 1rem;
+      form p {
+        text-align: left;
+        margin-top: 20px;
       }
       button {
         margin-top: 1rem;
@@ -405,6 +470,11 @@
 
       .question {
         margin-top: 24px;
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+      }
+      .guest-question {
         align-items: flex-start;
         display: flex;
         flex-direction: column;
@@ -446,6 +516,12 @@
       .group {
         margin-top: 20px;
       }
+
+      .hidden {
+        display: none;
+      }
+      .hide-me {
+      }
     </style>
   </head>
   <body>
@@ -455,12 +531,22 @@
           media="(max-width: 1372px)"
           srcset="images/main_page_mobile.JPG"
         />
-        <source media="(min-width: 769px)" srcset="images/main_page.JPG" />
-        <img src="images/main_page.JPG" alt="Background" class="corner-img" />
+        <source
+          media="(min-width: 769px)"
+          srcset="images/main_page_mobile.JPG"
+        />
+        <img
+          src="images/main_page_mobile.JPG"
+          alt="Background"
+          class="corner-img"
+        />
       </picture>
-      <header>
-        <img src="svgs/flower_rotated.svg" alt="Flower" class="flower" />
-        <img src="svgs/poppy_open_rotated.svg" alt="Poppy" class="poppy" />
+      <header class="names">
+        <!-- <img src="svgs/flower_rotated.svg" alt="Flower" class="flower" /> 
+        <div>
+          <img src="images/leaves.png" alt="leaves" class="flower" />
+          <img src="images/leaves.png" alt="leaves" class="flower-2" />
+        </div>-->
         <h1>Адилина</h1>
         <h1>и Божидар</h1>
         <p class="date">14.06.2026</p>
@@ -496,11 +582,11 @@
       <header>
         <h1>Ще станем семейство Димитрови!</h1>
         <p class="will-be-family-paragraph location">
-          С радост и с трепет в душите, ви каним да споделите с нас един от
-          най-вълнуващите моменти в животите ни, а именно стъпването ни в брак.
-          В този специален момент искаме да споделим любовта, щастието и
-          обещанието си за бъдеще, изпълнено с обич и споделени мигове. Вашето
-          присъствие ще направи празника ни още по-незабравим и светъл.
+          С радост и трепет в душите ви каним да споделим заедно един от
+          най-вълнуващите дни за нас, а именно встъпването ни в брак. В този
+          специален момент искаме да споделим любовта, щастието и обещанието си
+          за бъдеще, изпълнено с обич и споделени мигове. Вашето присъствие ще
+          направи празника ни още по-незабравим и светъл.
         </p>
       </header>
     </section>
@@ -512,14 +598,22 @@
           <div class="time">15:30</div>
           <div class="divider"></div>
           <div class="event">
-            <p class="explanation">Сключване на граждански брак</p>
+            <p class="explanation">
+              Сключване на граждански брак
+              <img
+                style="width: 110px"
+                class="schedule-icon"
+                src="svgs/wedding_bands.svg"
+                alt=""
+              />
+            </p>
             <p class="location">
               Обредна зала "Триадица"<a
                 href="https://maps.app.goo.gl/jwweCE2cpzv9NtA28"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src="svgs/location_icon.svg" />
+                <img class="location-icon" src="svgs/location_heart.svg" />
               </a>
             </p>
           </div>
@@ -528,14 +622,22 @@
           <div class="time">16:30</div>
           <div class="divider"></div>
           <div class="event">
-            <p class="explanation">Сключване на църковен брак</p>
+            <p class="explanation">
+              Сключване на църковен брак
+              <img
+                style="width: 60px"
+                class="schedule-icon"
+                src="svgs/church.svg"
+                alt=""
+              />
+            </p>
             <p class="location">
               Храм "Света Неделя"<a
                 href="https://maps.app.goo.gl/1RDFghNMPGUkAh6c6"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src="svgs/location_icon.svg" />
+                <img class="location-icon" src="svgs/location_heart.svg" />
               </a>
             </p>
           </div>
@@ -544,14 +646,31 @@
           <div class="time">18:30</div>
           <div class="divider"></div>
           <div class="event">
-            <p class="explanation">Welcome drink и снимки с младоженците</p>
+            <p class="explanation">
+              Welcome drink
+              <img
+                style="width: 41px"
+                class="schedule-icon"
+                src="svgs/shampagne.svg"
+                alt=""
+              />
+            </p>
+            <p class="explanation">
+              Снимки с младоженците
+              <img
+                style="width: 66px"
+                class="schedule-icon"
+                src="svgs/photo.svg"
+                alt=""
+              />
+            </p>
             <p class="location">
               Хотел Хилтън<a
                 href="https://maps.app.goo.gl/4WVfMFG5AbUZCbJS7"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src="svgs/location_icon.svg" />
+                <img class="location-icon" src="svgs/location_heart.svg" />
               </a>
             </p>
           </div>
@@ -560,7 +679,24 @@
           <div class="time">19:00</div>
           <div class="divider"></div>
           <div class="event">
-            <p class="explanation">Начало на празненството</p>
+            <p class="explanation">
+              Празнична вечеря
+              <img
+                style="width: 54px"
+                class="schedule-icon"
+                src="svgs/plate.svg"
+                alt=""
+              />
+            </p>
+            <p class="explanation">
+              Парти
+              <img
+                style="width: 62px"
+                class="schedule-icon"
+                src="svgs/dance.svg"
+                alt=""
+              />
+            </p>
           </div>
         </li>
       </ul>
@@ -587,7 +723,7 @@
           </div>
         </div>
 
-        <div class="question">
+        <div class="question hide-me hidden">
           <p>Какъв тип меню предпочиташ?</p>
           <div class="radio-choice">
             <label>
@@ -611,10 +747,10 @@
           </div>
         </div>
 
-        <div class="question">
+        <div class="question hide-me hidden">
           <p>
-            Гости (Моля, напишете име и фамилия на гостите, както и изберете
-            меню в съответните полета)
+            <strong>Гости </strong>(Моля, напишете име и фамилия на гостите,
+            както и изберете меню в съответните полета):
           </p>
           <p>Възрастни:</p>
           <div class="radio-choice">
@@ -623,9 +759,9 @@
           </div>
 
           <div id="groupsContainer" class="group-container"></div>
-          <p>Деца:</p>
+          <p>Деца (до 12 години):</p>
           <div class="radio-choice">
-            <input id="countRangeKids" type="range" min="0" max="2" value="0" />
+            <input id="countRangeKids" type="range" min="0" max="3" value="0" />
             <span id="rangeValueKids" class="guest-slider">0</span>
           </div>
           <div id="groupsContainerKids" class="group-container"></div>
@@ -686,7 +822,8 @@
         countRangeId,
         rangeValueId,
         groupsContainerId,
-        guestType
+        guestType,
+        menuChoice
       ) {
         const range = document.getElementById(countRangeId);
         const rangeValue = document.getElementById(rangeValueId);
@@ -710,22 +847,8 @@
             group.innerHTML = `
             <label class="form-label">${guestType} ${i}: <input type="text" name="name_${i}" class="text-field"></label>
 
-            <div class="question">
-              <p>Какъв тип меню предпочиташ?</p>
-              <div class="radio-choice">
-                <label>
-                  <input
-                    class="radio-input"
-                    type="radio" name="menu_choice_${i}" value="vegetarian">
-                  Вегетарианско
-                </label>
-                <label>
-                  <input
-                    class="radio-input"
-                    type="radio" name="menu_choice_${i}" value="meat">
-                  Месно
-                </label>
-              </div>
+            <div class="quest-question">
+              ${menuChoice(i)}
             </div>
           `;
 
@@ -734,8 +857,64 @@
         }
       }
 
-      slider("countRange", "rangeValue", "groupsContainer", "Гост");
-      slider("countRangeKids", "rangeValueKids", "groupsContainerKids", "Дете");
+      const menuChoiceGuest = (i) => `
+        <p>Какъв тип меню предпочиташ?</p>
+        <div class="radio-choice">
+          <label>
+            <input
+              class="radio-input"
+              type="radio" name="menu_choice_${i}" value="vegetarian">
+            Вегетарианско
+          </label>
+          <label>
+            <input
+              class="radio-input"
+              type="radio" name="menu_choice_${i}" value="meat">
+            Месно
+          </label>
+        </div>
+      `;
+
+      const menucNonChoiceKid = (i) => `
+        <p>Детско меню</p>
+      `;
+
+      slider(
+        "countRange",
+        "rangeValue",
+        "groupsContainer",
+        "Гост",
+        menuChoiceGuest
+      );
+      slider(
+        "countRangeKids",
+        "rangeValueKids",
+        "groupsContainerKids",
+        "Дете",
+        menucNonChoiceKid
+      );
+
+      const radios = document.querySelectorAll('input[name="attendance"]');
+
+      radios.forEach((radio) => {
+        radio.addEventListener("change", () => {
+          const value = radio.value;
+
+          // hide everything first
+          const elements = document.querySelectorAll(".hide-me");
+
+          // show the selected block
+          if (value === "no") {
+            elements.forEach((el) => {
+              el.classList.add("hidden");
+            });
+          } else if (value === "yes") {
+            elements.forEach((el) => {
+              el.classList.remove("hidden");
+            });
+          }
+        });
+      });
     </script>
   </body>
 </html>
