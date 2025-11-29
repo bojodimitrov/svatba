@@ -474,6 +474,8 @@
         align-items: flex-start;
         display: flex;
         flex-direction: column;
+        box-sizing: border-box;
+        width: 100%;
       }
       .guest-question {
         align-items: flex-start;
@@ -483,8 +485,6 @@
 
       label {
         display: flex;
-        width: 100%;
-        margin-right: 20px;
       }
 
       .radio-input {
@@ -497,6 +497,8 @@
 
       .radio-choice {
         display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
       }
 
       button:hover {
@@ -521,17 +523,23 @@
       .hidden {
         display: none;
       }
+
       .hide-me {
+      }
+
+      .name-label {
+        box-sizing: border-box;
+        width: 100%;
       }
     </style>
   </head>
   <body>
     <section class="main-page">
-        <img
-          src="images/main_page_mobile.JPG"
-          alt="Background"
-          class="corner-img"
-        />
+      <img
+        src="images/main_page_mobile.JPG"
+        alt="Background"
+        class="corner-img"
+      />
       <header class="names">
         <!-- <img src="svgs/flower_rotated.svg" alt="Flower" class="flower" /> 
         <div>
@@ -573,11 +581,11 @@
       <header>
         <h1>Ще станем семейство Димитрови!</h1>
         <p class="will-be-family-paragraph location">
-          С радост ви каним да бъдете част от един от
-          най-вълнуващите моменти в живота ни - нашето сключване на брак. В този
-          специален ден желаем да споделим с вас любовта, щастието и обещанието си
-          за бъдеще, изпълнено с топлина и красиви мигове. Вашето присъствие ще
-          направи празника ни още по-незабравим и светъл.
+          С радост ви каним да бъдете част от един от най-вълнуващите моменти в
+          живота ни - нашето сключване на брак. В този специален ден желаем да
+          споделим с вас любовта, щастието и обещанието си за бъдеще, изпълнено
+          с топлина и красиви мигове. Вашето присъствие ще направи празника ни
+          още по-незабравим и светъл.
         </p>
       </header>
     </section>
@@ -696,7 +704,7 @@
     <section class="answer">
       <form id="menuForm">
         <h3>Отговор</h3>
-        <label>
+        <label class="name-label">
           <input name="meal" placeholder="Имена" required class="text-field" />
         </label>
 
@@ -708,7 +716,7 @@
               Да
             </label>
             <label>
-              <input type="radio" name="attendance" value="no" checked/>
+              <input type="radio" name="attendance" value="no" checked />
               Не
             </label>
           </div>
@@ -745,14 +753,28 @@
           </p>
           <p>Възрастни:</p>
           <div class="radio-choice">
-            <input id="countRange" type="range" min="0" max="2" value="0" class="text-field"/>
+            <input
+              id="countRange"
+              type="range"
+              min="0"
+              max="2"
+              value="0"
+              class="text-field"
+            />
             <span id="rangeValue" class="guest-slider">0</span>
           </div>
 
           <div id="groupsContainer" class="group-container"></div>
           <p>Деца (до 12 години):</p>
           <div class="radio-choice">
-            <input id="countRangeKids" type="range" min="0" max="3" value="0" class="text-field"/>
+            <input
+              id="countRangeKids"
+              type="range"
+              min="0"
+              max="3"
+              value="0"
+              class="text-field"
+            />
             <span id="rangeValueKids" class="guest-slider">0</span>
           </div>
           <div id="groupsContainerKids" class="group-container"></div>
