@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/png" href="images/palm.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,14 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Gilda+Display&display=swap"
-      rel="stylesheet"
-    />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Marck+Script&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Gilda+Display&family=Marck+Script&display=swap"
       rel="stylesheet"
     />
 
@@ -404,14 +398,50 @@
         display: flex;
       }
       .location {
-        font-family: "Gilda Display", serif;
+        font-family: "Cormorant", Sans-serif;
         font-size: 24px;
+        font-weight: 600;
       }
       .second-image {
         display: flex;
         flex-direction: column;
         width: 100%;
         padding: 0;
+      }
+
+      /* --- TRIPLE IMAGES --- */
+      .triple-images-main {
+        width: 26vw;
+        height: auto;
+      }
+      .triple-images-sec {
+        width: 20vw;
+        height: auto;
+      }
+      .trip-container {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+      }
+      @media (max-width: 768px) {
+        .trip-container {
+          margin-top: 50px;
+          gap: 20px;
+        }
+      }
+
+      /* --- DETAILS --- */
+      .details-paragraph {
+        align-content: flex-start;
+        max-width: 800px;
+        margin-bottom: 20px;
+      }
+      .details-container {
+        align-self: center;
+        max-width: 800px;
+        margin-bottom: 60px;
       }
 
       /* --- FORM --- */
@@ -726,15 +756,62 @@
       </ul>
     </section>
 
+    <section class="will-be-family">
+      <div class="trip-container">
+        <img src="images/trip2.JPG" alt="" class="triple-images-sec" />
+        <img src="images/trip1.JPG" alt="" class="triple-images-main" />
+        <img src="images/trip3.JPG" alt="" class="triple-images-sec" />
+      </div>
+    </section>
+
+    <section class="schedule">
+      <div class="details-container location">
+        <h3>Детайли</h3>
+        <p style="font-weight: 400" class="explanation">Кумове</p>
+        <p class="details-paragraph">
+          Кумуват Гергана Михова и Димитър Колев. Неотлъчно до нас ще са и
+          техните половинки.
+        </p>
+
+        <p style="font-weight: 400" class="explanation">Dress code</p>
+        <p class="details-paragraph">
+          Моля, оставете класическите цветове бяло и черно за младоженците.
+        </p>
+
+        <p style="font-weight: 400" class="explanation">Цветя</p>
+        <p class="details-paragraph">
+          Моля, не носете цветя - за тях ще се погрижим ние.
+        </p>
+
+        <p style="font-weight: 400" class="explanation">Подаръци</p>
+        <p class="details-paragraph">
+          По ваше желание, вместо материални подаръци, бихме се радвали на
+          принос в плик към нашите бъдещи мечти.
+        </p>
+
+        <p style="font-weight: 400" class="explanation">Настаняване</p>
+        <p class="details-paragraph">
+          За хората, които не са от София, ще се свържем с вас допълнително
+          относно настаняване.
+        </p>
+      </div>
+    </section>
+
     <section class="answer">
       <form id="menuForm">
         <h3>Отговор</h3>
+        <p style="margin-bottom: 36px">
+          <strong
+            >*Моля, потвърдете присъствие и изберете меню до
+            10.05.2026г.</strong
+          >
+        </p>
         <label class="name-label">
           <input name="meal" placeholder="Имена" required class="text-field" />
         </label>
 
         <div class="question">
-          <p>Ще присъстваш ли?</p>
+          <p>Ще присъствате ли?</p>
           <div class="radio-choice">
             <label>
               <input type="radio" name="attendance" value="yes" />
@@ -748,7 +825,7 @@
         </div>
 
         <div class="question hide-me hidden">
-          <p>Какъв тип меню предпочиташ?</p>
+          <p>Какъв тип меню предпочитате?</p>
           <div class="radio-choice">
             <label>
               <input

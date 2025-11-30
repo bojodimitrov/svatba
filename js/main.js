@@ -211,7 +211,7 @@
     }
 
     const menuChoiceGuest = (i) => `
-      <p>Какъв тип меню предпочиташ?</p>
+      <p>Какъв тип меню предпочитате?</p>
       <div class="radio-choice">
         <label>
           <input
