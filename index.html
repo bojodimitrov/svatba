@@ -730,7 +730,7 @@
                 class="radio-input"
                 type="radio"
                 name="menu-choice"
-                value="yes"
+                value="vegetarian"
               />
               Вегетарианско
             </label>
@@ -739,7 +739,7 @@
                 class="radio-input"
                 type="radio"
                 name="menu-choice"
-                value="no"
+                value="meat"
               />
               Месно
             </label>
@@ -791,12 +791,122 @@
     <script>
       document
         .getElementById("menuForm")
-        .addEventListener("submit", function (e) {
+        .addEventListener("submit", async function (e) {
           e.preventDefault();
-          const choice = document.querySelector(
-            'input[name="meal"]:checked'
-          ).value;
-          alert("Thank you! You selected: " + choice + " menu.");
+
+          // server endpoint for the EmailRequest POST
+          // NOTE: include a scheme. If a domain-only value is used (no http/https)
+          // we prepend https:// so fetch doesn't treat it as a file-relative path.
+          let endpoint = "ab-svatba.bojo1195.workers.dev";
+          if (!/^https?:\/\//i.test(endpoint)) {
+            endpoint = "https://" + endpoint;
+          }
+
+          // Basic form values
+          const name = document
+            .querySelector('input[name="meal"]')
+            .value.trim();
+
+          const attendance =
+            document.querySelector('input[name="attendance"]:checked')
+              ?.value === "yes"
+              ? "Да"
+              : "Не" || "Не";
+
+          const chosenMenu =
+            document.querySelector('input[name="menu-choice"]:checked')
+              ?.value === "vegetarian"
+              ? "Вегетарианско"
+              : "Месно" || "Месно";
+
+          const guestInputs = Array.from(
+            document.querySelectorAll(
+              '#groupsContainer input[name^="name_guest_"]'
+            )
+          );
+          const guests = guestInputs
+            .map((el) => el.value.trim())
+            .filter(Boolean);
+
+          const guestMenus = guests.map((_, index) => {
+            const name = `menu_choice_${index + 1}`;
+            return document.querySelector(`input[name="${name}"]:checked`)
+              ?.value === "vegetarian"
+              ? "Вегетарианско"
+              : "Месно" || null;
+          });
+
+          // Kids count and names (same name inputs are created by slider for kids too)
+          const kidsInputs = Array.from(
+            document.querySelectorAll(
+              '#groupsContainerKids input[name^="name_kid_"]'
+            )
+          );
+          const kids = kidsInputs.map((el) => el.value.trim()).filter(Boolean);
+
+          // Compose the email subject and body text to match the EmailRequest interface
+          const subject = `Отговор: ${name || "(no name)"} — ${attendance}`;
+
+          let text = `Име: ${name}\nОтговор: ${attendance}`;
+          if (attendance === "Да" && chosenMenu)
+            text += `\nИзбрано меню: ${chosenMenu}`;
+
+          if (guests.length) {
+            text += `\n\nГости (${guests.length}):`;
+            guests.forEach((guestName, i) => {
+              const menu = guestMenus[i] || "(не избрано)";
+              text += `\n- ${guestName} — меню: ${menu}`;
+            });
+          }
+
+          if (kids.length) {
+            text += `\n\nДеца (${kids.length}):`;
+            kids.forEach((kidName) => {
+              text += `\n- ${kidName} — детско меню`;
+            });
+          }
+
+          // Disable submit button while sending
+          const submitButton =
+            e.submitter ||
+            document.querySelector('#menuForm button[type="submit"]');
+          const originalText = submitButton?.textContent;
+          if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = "Изпращане...";
+          }
+
+          try {
+            const body = { subject, text };
+
+            const resp = await fetch(endpoint, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(body),
+            });
+
+            if (!resp.ok) {
+              const errText = await resp.text().catch(() => resp.statusText);
+              throw new Error(errText || `HTTP ${resp.status}`);
+            }
+
+            // success
+            alert("Благодарим — отговорът ви е изпратен.");
+            // optionally clear the form
+            document.getElementById("menuForm").reset();
+            // hide the extra blocks again
+            document
+              .querySelectorAll(".hide-me")
+              .forEach((el) => el.classList.add("hidden"));
+          } catch (err) {
+            console.error("Failed to send RSVP", err);
+            alert("Възникна грешка при изпращане — опитайте отново.");
+          } finally {
+            if (submitButton) {
+              submitButton.disabled = false;
+              submitButton.textContent = originalText || "ОТГОВОРИ СЕГА";
+            }
+          }
         });
 
       const targetDate = new Date("2026-06-14T00:00:00").getTime();
@@ -857,8 +967,12 @@
             const group = document.createElement("div");
             group.className = "group";
 
+            // use different name prefixes so kids and adult guests don't conflict
+            const nameInput =
+              guestType === "Гост" ? `name_guest_${i}` : `name_kid_${i}`;
+
             group.innerHTML = `
-            <label class="form-label">${guestType} ${i}: <input type="text" name="name_${i}" class="text-field"></label>
+            <label class="form-label">${guestType} ${i}: <input type="text" name="${nameInput}" class="text-field"></label>
 
             <div class="quest-question">
               ${menuChoice(i)}
