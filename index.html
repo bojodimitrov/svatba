@@ -460,8 +460,8 @@
         margin-top: 20px;
       }
       button {
-        margin-top: 1rem;
-        padding: 0.5rem 1.5rem;
+        margin-top: 16px;
+        padding: 8px 24px;
         background-color: #3d3d2e;
         color: #fff;
         border: none;
@@ -530,6 +530,31 @@
       .name-label {
         box-sizing: border-box;
         width: 100%;
+      }
+
+      /* Inline status message for form submission */
+      .form-message {
+        font-family: "Gilda Display", serif;
+        font-size: 20px;
+        margin-top: 16px;
+        padding: 12px 16px;
+        border-radius: 1px;
+        box-sizing: border-box;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .form-message.hidden {
+        display: none;
+      }
+      .form-message.success {
+        background: #3ba83b;
+        color: #fff;
+      }
+      .form-message.error {
+        background: #d73535;
+        color: #fff;
       }
     </style>
   </head>
@@ -781,6 +806,12 @@
         </div>
 
         <button type="submit">ОТГОВОРИ СЕГА</button>
+        <div
+          id="formMessage"
+          aria-live="polite"
+          role="status"
+          class="form-message hidden"
+        ></div>
       </form>
     </section>
 
@@ -788,260 +819,6 @@
       <img src="images/footer.JPG" alt="image" />
     </section>
 
-    <script>
-      document
-        .getElementById("menuForm")
-        .addEventListener("submit", async function (e) {
-          e.preventDefault();
-
-          // server endpoint for the EmailRequest POST
-          // NOTE: include a scheme. If a domain-only value is used (no http/https)
-          // we prepend https:// so fetch doesn't treat it as a file-relative path.
-          let endpoint = "ab-svatba.bojo1195.workers.dev";
-          if (!/^https?:\/\//i.test(endpoint)) {
-            endpoint = "https://" + endpoint;
-          }
-
-          // Basic form values
-          const name = document
-            .querySelector('input[name="meal"]')
-            .value.trim();
-
-          const attendance =
-            document.querySelector('input[name="attendance"]:checked')
-              ?.value === "yes"
-              ? "Да"
-              : "Не" || "Не";
-
-          const chosenMenu =
-            document.querySelector('input[name="menu-choice"]:checked')
-              ?.value === "vegetarian"
-              ? "Вегетарианско"
-              : "Месно" || "Месно";
-
-          const guestInputs = Array.from(
-            document.querySelectorAll(
-              '#groupsContainer input[name^="name_guest_"]'
-            )
-          );
-          const guests = guestInputs
-            .map((el) => el.value.trim())
-            .filter(Boolean);
-
-          const guestMenus = guests.map((_, index) => {
-            const name = `menu_choice_${index + 1}`;
-            return document.querySelector(`input[name="${name}"]:checked`)
-              ?.value === "vegetarian"
-              ? "Вегетарианско"
-              : "Месно" || null;
-          });
-
-          // Kids count and names (same name inputs are created by slider for kids too)
-          const kidsInputs = Array.from(
-            document.querySelectorAll(
-              '#groupsContainerKids input[name^="name_kid_"]'
-            )
-          );
-          const kids = kidsInputs.map((el) => el.value.trim()).filter(Boolean);
-
-          // Compose the email subject and body text to match the EmailRequest interface
-          const subject = `Отговор: ${name || "(no name)"} — ${attendance}`;
-
-          let text = `Име: ${name}\nОтговор: ${attendance}`;
-          if (attendance === "Да" && chosenMenu)
-            text += `\nИзбрано меню: ${chosenMenu}`;
-
-          if (guests.length) {
-            text += `\n\nГости (${guests.length}):`;
-            guests.forEach((guestName, i) => {
-              const menu = guestMenus[i] || "(не избрано)";
-              text += `\n- ${guestName} — меню: ${menu}`;
-            });
-          }
-
-          if (kids.length) {
-            text += `\n\nДеца (${kids.length}):`;
-            kids.forEach((kidName) => {
-              text += `\n- ${kidName} — детско меню`;
-            });
-          }
-
-          // Disable submit button while sending
-          const submitButton =
-            e.submitter ||
-            document.querySelector('#menuForm button[type="submit"]');
-          const originalText = submitButton?.textContent;
-          if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.textContent = "Изпращане...";
-          }
-
-          try {
-            const body = { subject, text };
-
-            const resp = await fetch(endpoint, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(body),
-            });
-
-            if (!resp.ok) {
-              const errText = await resp.text().catch(() => resp.statusText);
-              throw new Error(errText || `HTTP ${resp.status}`);
-            }
-
-            // success
-            alert("Благодарим — отговорът ви е изпратен.");
-            // optionally clear the form
-            document.getElementById("menuForm").reset();
-            // hide the extra blocks again
-            document
-              .querySelectorAll(".hide-me")
-              .forEach((el) => el.classList.add("hidden"));
-          } catch (err) {
-            console.error("Failed to send RSVP", err);
-            alert("Възникна грешка при изпращане — опитайте отново.");
-          } finally {
-            if (submitButton) {
-              submitButton.disabled = false;
-              submitButton.textContent = originalText || "ОТГОВОРИ СЕГА";
-            }
-          }
-        });
-
-      const targetDate = new Date("2026-06-14T00:00:00").getTime();
-
-      function updateClock() {
-        const now = new Date().getTime();
-        let diff = targetDate - now;
-
-        diff = diff - 1000;
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        diff -= days * (1000 * 60 * 60 * 24);
-
-        let hours = Math.floor(diff / (1000 * 60 * 60));
-        diff -= hours * (1000 * 60 * 60);
-
-        const minutes = Math.floor(diff / (1000 * 60));
-        diff -= minutes * (1000 * 60);
-
-        const seconds = Math.floor(diff / 1000);
-
-        if (new Date().getTime() < new Date("2026-03-29T00:00:00").getTime()) {
-          hours = hours + 1;
-        }
-
-        document.getElementById("days").textContent = days;
-        document.getElementById("hours").textContent = hours;
-        document.getElementById("minutes").textContent = minutes;
-        document.getElementById("seconds").textContent = seconds;
-      }
-
-      updateClock();
-      setInterval(updateClock, 1000);
-
-      function slider(
-        countRangeId,
-        rangeValueId,
-        groupsContainerId,
-        guestType,
-        menuChoice
-      ) {
-        const range = document.getElementById(countRangeId);
-        const rangeValue = document.getElementById(rangeValueId);
-        const container = document.getElementById(groupsContainerId);
-
-        // initial render
-        renderGroups(range.value);
-
-        range.addEventListener("input", () => {
-          rangeValue.textContent = range.value;
-          renderGroups(range.value);
-        });
-
-        function renderGroups(count) {
-          container.innerHTML = "";
-
-          for (let i = 1; i <= count; i++) {
-            const group = document.createElement("div");
-            group.className = "group";
-
-            // use different name prefixes so kids and adult guests don't conflict
-            const nameInput =
-              guestType === "Гост" ? `name_guest_${i}` : `name_kid_${i}`;
-
-            group.innerHTML = `
-            <label class="form-label">${guestType} ${i}: <input type="text" name="${nameInput}" class="text-field"></label>
-
-            <div class="quest-question">
-              ${menuChoice(i)}
-            </div>
-          `;
-
-            container.appendChild(group);
-          }
-        }
-      }
-
-      const menuChoiceGuest = (i) => `
-        <p>Какъв тип меню предпочиташ?</p>
-        <div class="radio-choice">
-          <label>
-            <input
-              class="radio-input"
-              type="radio" name="menu_choice_${i}" value="vegetarian">
-            Вегетарианско
-          </label>
-          <label>
-            <input
-              class="radio-input"
-              type="radio" name="menu_choice_${i}" value="meat">
-            Месно
-          </label>
-        </div>
-      `;
-
-      const menucNonChoiceKid = (i) => `
-        <p>Детско меню</p>
-      `;
-
-      slider(
-        "countRange",
-        "rangeValue",
-        "groupsContainer",
-        "Гост",
-        menuChoiceGuest
-      );
-      slider(
-        "countRangeKids",
-        "rangeValueKids",
-        "groupsContainerKids",
-        "Дете",
-        menucNonChoiceKid
-      );
-
-      const radios = document.querySelectorAll('input[name="attendance"]');
-
-      radios.forEach((radio) => {
-        radio.addEventListener("change", () => {
-          const value = radio.value;
-
-          // hide everything first
-          const elements = document.querySelectorAll(".hide-me");
-
-          // show the selected block
-          if (value === "no") {
-            elements.forEach((el) => {
-              el.classList.add("hidden");
-            });
-          } else if (value === "yes") {
-            elements.forEach((el) => {
-              el.classList.remove("hidden");
-            });
-          }
-        });
-      });
-    </script>
+    <script src="js/main.js"></script>
   </body>
 </html>
