@@ -15,7 +15,7 @@
     }
 
     // Basic form values
-    const name = document.querySelector('input[name="meal"]').value.trim();
+    const name = document.querySelector('input[name="name"]').value.trim();
 
     const attendance =
       document.querySelector('input[name="attendance"]:checked')?.value ===
