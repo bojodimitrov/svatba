@@ -805,7 +805,7 @@
     </section>
 
     <section class="answer">
-      <form id="menuForm">
+      <form id="menuForm" autocomplete="off">
         <h3>Отговор</h3>
         <p style="margin-bottom: 36px">
           <strong
@@ -820,6 +820,15 @@
         <div class="question">
           <p>Ще присъствате ли?</p>
           <div class="radio-choice">
+            <label style="display: none">
+              <input
+                type="radio"
+                name="attendance"
+                value="wait"
+                checked="true"
+              />
+              Празно
+            </label>
             <label>
               <input type="radio" name="attendance" value="yes" />
               Да
@@ -827,10 +836,6 @@
             <label>
               <input type="radio" name="attendance" value="no" />
               Не
-            </label>
-            <label style="display: none">
-              <input type="radio" name="attendance" value="wait" checked />
-              Празно
             </label>
           </div>
         </div>
