@@ -171,9 +171,6 @@
           pointer-events: none; /* ensures it doesn’t block clicks */
         }
       }
-
-      .names {
-      }
       .flower {
         position: absolute;
         top: -20px;
@@ -292,28 +289,28 @@
       /* --- SCHEDULE --- */
       .location-icon {
         width: 16px;
-        animation: jumpAnim 1.5s infinite;
+        animation: jumpAnim 1.6s infinite;
       }
       @keyframes jumpAnim {
         0% {
           transform: translateY(0);
         }
-        15% {
-          transform: translateY(-12px);
+        14% {
+          transform: translateY(-14px);
         } /* big jump */
-        25% {
+        30% {
           transform: translateY(0);
         }
-        45% {
+        40% {
           transform: translateY(-4px);
         } /* smaller jump */
         55% {
           transform: translateY(0);
         }
-        75% {
+        62% {
           transform: translateY(-2px);
         } /* smallest jump */
-        85% {
+        75% {
           transform: translateY(0);
         }
         100% {
@@ -533,6 +530,7 @@
       .form-label {
         flex-direction: column;
         align-items: flex-start;
+        text-align: start;
       }
 
       .radio-choice {
@@ -596,6 +594,10 @@
         background: #d73535;
         color: #fff;
       }
+      button:disabled {
+        background-color: #a3a38c;
+        cursor: not-allowed;
+      }
     </style>
   </head>
   <body>
@@ -605,12 +607,7 @@
         alt="Background"
         class="corner-img"
       />
-      <header class="names">
-        <!-- <img src="svgs/flower_rotated.svg" alt="Flower" class="flower" /> 
-        <div>
-          <img src="images/leaves.png" alt="leaves" class="flower" />
-          <img src="images/leaves.png" alt="leaves" class="flower-2" />
-        </div>-->
+      <header>
         <h1>Адилина</h1>
         <h1>и Божидар</h1>
         <p class="date">14.06.2026</p>
@@ -817,7 +814,7 @@
           >
         </p>
         <label class="name-label">
-          <input name="meal" placeholder="Имена" required class="text-field" />
+          <input name="name" placeholder="Имена" required class="text-field" />
         </label>
 
         <div class="question">
@@ -828,8 +825,12 @@
               Да
             </label>
             <label>
-              <input type="radio" name="attendance" value="no" checked />
+              <input type="radio" name="attendance" value="no" />
               Не
+            </label>
+            <label style="display: none">
+              <input type="radio" name="attendance" value="wait" checked />
+              Празно
             </label>
           </div>
         </div>
@@ -889,10 +890,16 @@
             />
             <span id="rangeValueKids" class="guest-slider">0</span>
           </div>
+
           <div id="groupsContainerKids" class="group-container"></div>
+
+          <label class="form-label">
+            Ако сте алергични към нещо, моля посочете:
+            <input name="alergens" placeholder="Алергени" class="text-field" />
+          </label>
         </div>
 
-        <button type="submit">ОТГОВОРИ СЕГА</button>
+        <button type="submit" disabled>ОТГОВОРИ СЕГА</button>
         <div
           id="formMessage"
           aria-live="polite"

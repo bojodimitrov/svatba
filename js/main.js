@@ -5,6 +5,7 @@
   // server endpoint for the EmailRequest POST
   // NOTE: include a scheme. If a domain-only value is used (no http/https)
   // this code will prepend https:// so fetch doesn't treat it as a file-relative path.
+
   async function handleFormSubmit(e) {
     e.preventDefault();
 
@@ -256,15 +257,23 @@
         // hide everything first
         const elements = document.querySelectorAll(".hide-me");
 
+        const submitButton = document.querySelector(
+          '#menuForm button[type="submit"]'
+        );
+
         // show the selected block
         if (value === "no") {
           elements.forEach((el) => {
             el.classList.add("hidden");
           });
+          submitButton.disabled = false;
         } else if (value === "yes") {
           elements.forEach((el) => {
             el.classList.remove("hidden");
           });
+          submitButton.disabled = false;
+        } else if (value === "wait") {
+          submitButton.disabled = true;
         }
       });
     });
