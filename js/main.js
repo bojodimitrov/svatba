@@ -47,6 +47,10 @@
     );
     const kids = kidsInputs.map((el) => el.value.trim()).filter(Boolean);
 
+    const alergens = document
+      .querySelector('input[name="alergens"]')
+      .value.trim();
+
     const subject = `Отговор: ${name || "(no name)"} — ${attendance}`;
 
     let text = `Име: ${name}\nОтговор:  ${attendance}`;
@@ -66,6 +70,10 @@
       kids.forEach((kidName) => {
         text += `\n- ${kidName} — детско меню`;
       });
+    }
+
+    if (alergens) {
+      text += `\n\nАлергии/Специални изисквания: ${alergens}`;
     }
 
     const submitButton =

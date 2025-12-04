@@ -52,6 +52,10 @@
         margin: 0;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
         overflow-x: hidden;
         font-family: "Georgia", serif;
@@ -87,6 +91,18 @@
       @media (max-width: 768px) {
         h3 {
           font-size: 72px;
+        }
+      }
+
+      h4 {
+        font-family: "Madelyn", cursive;
+        font-size: 60px;
+        font-weight: 100;
+        margin: 10px;
+      }
+      @media (max-width: 768px) {
+        h3 {
+          font-size: 50px;
         }
       }
 
@@ -465,14 +481,21 @@
       }
 
       input,
+      textarea,
+      select,
+      button {
+        font-family: inherit;
+      }
+
+      input,
       select {
         outline: none;
         border: 1px solid #355d1f;
-        opacity: 0.7;
+        opacity: 0.9;
         padding: 10px 20px;
         color: #355d1f;
         font-size: 20px;
-        font-weight: 400;
+        font-weight: 700;
       }
       .text-field {
         width: 100%;
@@ -487,9 +510,9 @@
         width: 100%;
         border-radius: 1px;
         padding: 20px 40px;
-        max-width: 400px;
-        font-family: "Gilda Display", serif;
-        font-size: 20px;
+        max-width: 600px;
+        font-family: "Cormorant", Sans-serif;
+        font-size: 22px;
         box-sizing: border-box;
       }
       form p {
@@ -536,7 +559,7 @@
       .radio-choice {
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
+        max-height: 80px;
       }
 
       button:hover {
@@ -545,9 +568,9 @@
 
       .guest-slider {
         font-family: "Madelyn", cursive;
-        font-size: 60px;
+        font-size: 90px;
         align-self: center;
-        margin-left: 20px;
+        margin: 16px 0 0 20px;
       }
 
       .group-container {
@@ -572,7 +595,7 @@
 
       /* Inline status message for form submission */
       .form-message {
-        font-family: "Gilda Display", serif;
+        font-family: "Cormorant", Sans-serif;
         font-size: 20px;
         margin-top: 16px;
         padding: 12px 16px;
@@ -598,9 +621,35 @@
         background-color: #a3a38c;
         cursor: not-allowed;
       }
+
+      .save-the-date {
+        text-align: center;
+      }
+
+      .footer {
+        display: flex;
+        flex-direction: row;
+        align-self: center;
+        gap: 100px;
+        margin: 20px 0;
+      }
+      @media (max-width: 768px) {
+        .footer {
+          flex-direction: column;
+          gap: 20px;
+          align-items: flex-start;
+        }
+      }
+
+      .footer-names {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+      }
     </style>
   </head>
   <body>
+    <div id="top"></div>
     <section class="main-page">
       <img
         src="images/main_page_mobile.JPG"
@@ -914,8 +963,26 @@
       </form>
     </section>
 
+    <section class="schedule">
+      <div class="details-container location">
+        <h4>Адилина и Божидар</h4>
+        <p class="save-the-date">ЗАПАЗЕТЕ ДАТАТА!</p>
+      </div>
+    </section>
+
     <section class="second-image">
       <img src="images/footer.JPG" alt="image" />
+    </section>
+
+    <section class="footer">
+      <div class="footer-names">
+        <p>Изготвил сайта: Божидар Димитров</p>
+        <p>Снимки от: Иван Велев</p>
+      </div>
+
+      <div>
+        <a href="#top">&#8593; Обратно горе</a>
+      </div>
     </section>
 
     <script src="js/main.js"></script>
