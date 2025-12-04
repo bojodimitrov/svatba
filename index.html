@@ -99,6 +99,8 @@
         font-size: 60px;
         font-weight: 100;
         margin: 10px;
+        display: flex;
+        justify-content: center;
       }
       @media (max-width: 768px) {
         h3 {
@@ -468,6 +470,10 @@
       }
 
       /* --- FORM --- */
+      .alergens {
+        width: 100%;
+        margin-top: 20px;
+      }
       .answer {
         background-image: url("images/bamboo.png");
         padding: 60px 10px;
@@ -915,8 +921,8 @@
 
         <div class="question hide-me hidden">
           <p>
-            <strong>Гости </strong>(Моля, напишете име и фамилия на гостите,
-            както и изберете меню в съответните полета):
+            <strong>Гости </strong>(Моля, напишете име и фамилия на
+            допълнителните гости, както и изберете меню в съответните полета):
           </p>
           <p>Възрастни:</p>
           <div class="radio-choice">
@@ -947,7 +953,7 @@
 
           <div id="groupsContainerKids" class="group-container"></div>
 
-          <label class="form-label">
+          <label class="form-label alergens">
             Ако сте алергични към нещо, моля посочете:
             <input name="alergens" placeholder="Алергени" class="text-field" />
           </label>
@@ -964,9 +970,11 @@
     </section>
 
     <section class="schedule">
-      <div class="details-container location">
+      <div class="details-container location" style="margin-top: 40px">
+        <p class="save-the-date">
+          НЯМАМЕ ТЪРПЕНИЕ ДА СЕ ВИДИМЕ У СОФИЯТА, БАТЕ!
+        </p>
         <h4>Адилина и Божидар</h4>
-        <p class="save-the-date">ЗАПАЗЕТЕ ДАТАТА!</p>
       </div>
     </section>
 

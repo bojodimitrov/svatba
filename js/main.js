@@ -210,7 +210,7 @@
           const nameInput =
             guestType === "Гост" ? `name_guest_${i}` : `name_kid_${i}`;
 
-          group.innerHTML = `\n            <label class="form-label">${guestType} ${i}: <input type="text" name="${nameInput}" class="text-field"></label>\n\n            <div class="quest-question">\n              ${menuChoice(
+          group.innerHTML = `\n            <label class="form-label">${guestType} ${i}: <input type="text" name="${nameInput}" required class="text-field"></label>\n\n            <div class="quest-question">\n              ${menuChoice(
             i
           )}\n            </div>\n          `;
 
@@ -225,13 +225,13 @@
         <label>
           <input
             class="radio-input"
-            type="radio" name="menu_choice_${i}" value="vegetarian">
+            type="radio" name="menu_choice_${i}" value="vegetarian" required>
           Вегетарианско
         </label>
         <label>
           <input
             class="radio-input"
-            type="radio" name="menu_choice_${i}" value="meat">
+            type="radio" name="menu_choice_${i}" value="meat" required>
           Месно
         </label>
       </div>
