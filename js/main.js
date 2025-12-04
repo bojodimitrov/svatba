@@ -210,7 +210,7 @@
           const nameInput =
             guestType === "Гост" ? `name_guest_${i}` : `name_kid_${i}`;
 
-          group.innerHTML = `\n            <label class="form-label">${guestType} ${i}: <input type="text" name="${nameInput}" required class="text-field"></label>\n\n            <div class="quest-question">\n              ${menuChoice(
+          group.innerHTML = `\n            <label class="form-label">${guestType} ${i}: <input type="text" name="${nameInput}" placeholder="Имена" required class="text-field"></label>\n\n            <div class="quest-question">\n              ${menuChoice(
             i
           )}\n            </div>\n          `;
 
