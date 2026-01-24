@@ -30,7 +30,7 @@
         : "Месно" || "Месно";
 
     const guestInputs = Array.from(
-      document.querySelectorAll('#groupsContainer input[name^="name_guest_"]')
+      document.querySelectorAll('#groupsContainer input[name^="name_guest_"]'),
     );
     const guests = guestInputs.map((el) => el.value.trim()).filter(Boolean);
 
@@ -43,7 +43,9 @@
     });
 
     const kidsInputs = Array.from(
-      document.querySelectorAll('#groupsContainerKids input[name^="name_kid_"]')
+      document.querySelectorAll(
+        '#groupsContainerKids input[name^="name_kid_"]',
+      ),
     );
     const kids = kidsInputs.map((el) => el.value.trim()).filter(Boolean);
 
@@ -183,7 +185,7 @@
       rangeValueId,
       groupsContainerId,
       guestType,
-      menuChoice
+      menuChoice,
     ) {
       const range = document.getElementById(countRangeId);
       const rangeValue = document.getElementById(rangeValueId);
@@ -211,7 +213,7 @@
             guestType === "Гост" ? `name_guest_${i}` : `name_kid_${i}`;
 
           group.innerHTML = `\n            <label class="form-label">${guestType} ${i}: <input type="text" name="${nameInput}" placeholder="Имена" required class="text-field"></label>\n\n            <div class="quest-question">\n              ${menuChoice(
-            i
+            i,
           )}\n            </div>\n          `;
 
           container.appendChild(group);
@@ -222,13 +224,13 @@
     const menuChoiceGuest = (i) => `
       <p>Какъв тип меню предпочитате?</p>
       <div class="radio-choice">
-        <label>
+        <label class="radio-label">
           <input
             class="radio-input"
             type="radio" name="menu_choice_${i}" value="vegetarian" required>
           Вегетарианско
         </label>
-        <label>
+        <label class="radio-label">
           <input
             class="radio-input"
             type="radio" name="menu_choice_${i}" value="meat" required>
@@ -246,14 +248,14 @@
       "rangeValue",
       "groupsContainer",
       "Гост",
-      menuChoiceGuest
+      menuChoiceGuest,
     );
     slider(
       "countRangeKids",
       "rangeValueKids",
       "groupsContainerKids",
       "Дете",
-      menuNonChoiceKid
+      menuNonChoiceKid,
     );
 
     const radios = document.querySelectorAll('input[name="attendance"]');
@@ -266,7 +268,7 @@
         const elements = document.querySelectorAll(".hide-me");
 
         const submitButton = document.querySelector(
-          '#menuForm button[type="submit"]'
+          '#menuForm button[type="submit"]',
         );
 
         // show the selected block

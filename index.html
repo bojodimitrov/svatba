@@ -598,6 +598,10 @@
         width: 100%;
       }
 
+      .radio-label {
+        margin-right: 20px;
+      }
+
       /* Inline status message for form submission */
       .form-message {
         font-family: "Cormorant", Sans-serif;
@@ -883,10 +887,10 @@
               />
               Празно
             </label>
-            <label>
+            <label class="radio-label">
               <input type="radio" name="attendance" value="yes" />
               Да
-            </label>
+            </label class="radio-label">
             <label>
               <input type="radio" name="attendance" value="no" />
               Не
@@ -897,7 +901,7 @@
         <div class="question hide-me hidden">
           <p>Какъв тип меню предпочитате?</p>
           <div class="radio-choice">
-            <label>
+            <label class="radio-label">
               <input
                 class="radio-input"
                 type="radio"
@@ -906,7 +910,7 @@
               />
               Вегетарианско
             </label>
-            <label>
+            <label class="radio-label">
               <input
                 class="radio-input"
                 type="radio"
