@@ -148,6 +148,21 @@
       const now = new Date().getTime();
       let diff = targetDate - now;
 
+      const daysEl = document.getElementById("days");
+      const hoursEl = document.getElementById("hours");
+      const minutesEl = document.getElementById("minutes");
+      const secondsEl = document.getElementById("seconds");
+
+      if (diff <= 0) {
+        if (daysEl) daysEl.textContent = 0;
+        if (hoursEl) hoursEl.textContent = 0;
+        if (minutesEl) minutesEl.textContent = 0;
+        if (secondsEl) secondsEl.textContent = 0;
+        const partyMsg = document.getElementById("party-message");
+        if (partyMsg) partyMsg.style.display = "";
+        return;
+      }
+
       diff = diff - 1000;
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -164,11 +179,6 @@
       if (new Date().getTime() < new Date("2026-03-29T00:00:00").getTime()) {
         hours = hours + 1;
       }
-
-      const daysEl = document.getElementById("days");
-      const hoursEl = document.getElementById("hours");
-      const minutesEl = document.getElementById("minutes");
-      const secondsEl = document.getElementById("seconds");
 
       if (daysEl) daysEl.textContent = days;
       if (hoursEl) hoursEl.textContent = hours;
